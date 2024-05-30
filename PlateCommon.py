@@ -131,12 +131,12 @@ def random_scene(img, data_set):
     # print bg_img_path
     env = cv2.imread(bg_img_path)
     if env is None:
-        print bg_img_path, 'is not a good file'
+        print(bg_img_path, 'is not a good file')
         return None, None
     # print env.shape, img.shape
     # 如果背景图片小于（65，21）则不使用
     if env.shape[1] <= 65 or env.shape[0] <= 21:
-        print env.shape
+        print(env.shape)
         return None, None
     # 车牌宽高比变化范围是(1.5, 4.0)
     new_height = img.shape[0] * (0.5 + np.random.random()) # 0.5 -- 1.5
@@ -146,12 +146,12 @@ def random_scene(img, data_set):
     new_height = int(new_height * scale + 0.5)
     img = cv2.resize(img, (new_width, new_height))
     if env.shape[1] <= img.shape[1] or env.shape[0] <= img.shape[0]:
-        print env.shape, '---', img.shape
+        print(env.shape, '---', img.shape)
         return None, None
     x = r(env.shape[1] - img.shape[1])
     y = r(env.shape[0] - img.shape[0])
-    bak = (img==0);
-    bak = bak.astype(np.uint8)*255;
+    bak = (img==0)
+    bak = bak.astype(np.uint8)*255
     inv = cv2.bitwise_and(bak, env[y:y+new_height, x:x+new_width, :])
     img = cv2.bitwise_or(inv, img)
     env[y:y+new_height, x:x+new_width, :] = img[:,:,:]
@@ -174,7 +174,7 @@ def GenCh1(f,val):
     return A
 
 def AddGauss(img, level):
-    return cv2.blur(img, (level * 2 + 1, level * 2 + 1));
+    return cv2.blur(img, (level * 2 + 1, level * 2 + 1))
 
 
 def r(val):

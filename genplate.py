@@ -180,7 +180,7 @@ class GenPlate:
         box = [0,0,0,0,0,0,0];
         if(pos!=-1):
             box[pos]=1;
-        for unit,cpos in zip(box,xrange(len(box))):
+        for unit,cpos in zip(box,range(len(box))):
             if unit == 1:
                 plateStr += val
             else:
@@ -196,7 +196,7 @@ class GenPlate:
     def genBatch(self, batchSize,pos,charRange, outputPath,size):
         if (not os.path.exists(outputPath)):
             os.mkdir(outputPath)
-        for i in xrange(batchSize):
+        for i in range(batchSize):
             plateStr = G.genPlateString(-1,-1)
             img =  G.generate(plateStr);
             img = cv2.resize(img,size);
@@ -206,4 +206,4 @@ class GenPlate:
 G = GenPlate("./font/platech.ttf",'./font/platechar.ttf',"./NoPlates")
 
 # G.genBatch(10000,2,range(31,65),"./plate_train",(272,72))
-G.genBatch(1000,2,range(31,65),"./plate_test",(272,72))
+G.genBatch(1000,2,list(range(31,65)),"./plate_test",(272,72))
